@@ -1,14 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Distraction Fee</router-link>
+      <router-link to="/">Distraction Free</router-link>
       <router-link to="/about" class="login">Login w/ Google</router-link>
     </div>
     <router-view />
     <div id="footer">
-      <p>
-        Intentionally made with little color and limited pictures to discourage frequent checking.
-      </p>
+      <p>Intentionally made with little color and limited pictures to discourage frequent checking.</p>
       <p>© 2020, Nicholas Pung</p>
     </div>
   </div>
@@ -27,6 +25,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 }
 
 #nav {
@@ -49,9 +51,14 @@ body {
 }
 
 #footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 1rem;
+}
+
+@media only screen and (min-width: 850px) {
+  #footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 </style>

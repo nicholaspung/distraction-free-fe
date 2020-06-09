@@ -26,14 +26,60 @@ export default {
 <style scoped>
 .home {
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .banner {
-  flex: 1 0 50%;
+  width: 65%;
 }
 
 .description {
-  flex: 1;
   text-align: left;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background-color: #c4c4c4;
+  padding: 1rem;
+  border: 0;
+  font-weight: bold;
+  align-self: center;
+}
+
+@media only screen and (min-width: 475px) {
+  .banner {
+    width: 50%;
+  }
+  .description {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .banner {
+    width: 40%;
+  }
+  .description {
+    width: 60%;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  .home {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .banner {
+    flex: 0.75;
+  }
+
+  .description {
+    flex: 1;
+    display: block;
+  }
 }
 </style>
