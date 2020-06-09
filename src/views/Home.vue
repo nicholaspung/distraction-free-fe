@@ -13,8 +13,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
 import IconMeditating from '@/components/icons/IconMeditating.vue';
 
 export default {
@@ -47,6 +45,7 @@ button {
   border: 0;
   font-weight: bold;
   align-self: center;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 475px) {

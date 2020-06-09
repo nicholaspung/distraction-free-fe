@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Distraction Free</router-link>
-      <router-link to="/about" class="login">Login w/ Google</router-link>
-    </div>
+    <header-nav />
     <router-view />
     <div id="footer">
       <p>Intentionally made with little color and limited pictures to discourage frequent checking.</p>
@@ -11,6 +8,14 @@
     </div>
   </div>
 </template>
+
+<script>
+import HeaderNav from '@/components/HeaderNav.vue';
+
+export default {
+  components: { HeaderNav },
+};
+</script>
 
 <style>
 html,
@@ -29,25 +34,6 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
-}
-
-#nav {
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  text-decoration: none;
-}
-
-.login {
-  background-color: #c4c4c4;
-  padding: 1rem;
 }
 
 #footer {
