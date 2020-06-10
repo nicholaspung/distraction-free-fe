@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -25,13 +23,6 @@ export default {
       savedRedditPosts: [],
       redditPosts: [],
     };
-  },
-  mounted() {
-    axios.get('https://www.reddit.com/r/redditdev/top.json').then((response) => {
-      console.log(response);
-      //   this.redditPosts = reponse.data.children;
-    });
-    // console.log(this.redditPosts);
   },
 };
 </script>
