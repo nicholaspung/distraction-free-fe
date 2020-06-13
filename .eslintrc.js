@@ -13,9 +13,9 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.vue'],
+      files: ['*.vue', '*.js'],
       rules: {
-        'linebreak-style': 'warn',
+        'linebreak-style': 'off',
         'max-len': 'warn',
       },
     },
