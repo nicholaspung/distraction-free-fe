@@ -17,6 +17,7 @@ module.exports = {
       rules: {
         'linebreak-style': 'off',
         'max-len': 'warn',
+        'operator-linebreak': 'warn',
       },
     },
   ],

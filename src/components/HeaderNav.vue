@@ -1,17 +1,25 @@
 <template>
   <div id="nav">
     <router-link to="/">Distraction Free</router-link>
-    <router-link to="/app" class="login" v-if="!loggedIn">Login w/ Google</router-link>
-    <router-link to="/" class="login" v-else>Logout</router-link>
+    <div v-if="!$auth.loading">
+      <button to="/app" class="login" v-if="!$auth.isAuthenticated" @click="login">Login w/ Google</button>
+      <button to="/" class="login" v-if="$auth.isAuthenticated" @click="logout">Logout</button>
+      {{$auth.isAuthenticated}}
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      loggedIn: false,
-    };
+  methods: {
+    login() {
+      this.$auth.loginWithRedirect();
+    },
+    logout() {
+      this.$auth.logout({
+        returnTo: window.location.origin,
+      });
+    },
   },
 };
 </script>
