@@ -31,4 +31,4 @@ const authGuard = (to, from, next) => {
   return null;
 };
 
-module.export = authGuard;
+export default authGuard;

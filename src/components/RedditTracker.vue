@@ -20,9 +20,10 @@
       <div>
         <h3>Latest Reddit Posts</h3>
         <ul v-if="redditPosts.length">
-          <li v-for="redditPost in redditPosts" :key="redditPost.data.id">
-            {{ redditPost.data.title }}
-          </li>
+          <li
+            v-for="redditPost in redditPosts"
+            :key="redditPost.data.id"
+          >{{ redditPost.data.title }}</li>
         </ul>
       </div>
     </div>
@@ -53,8 +54,10 @@ export default {
   },
   methods: {
     addTitle() {
-      console.log(this.newTitle);
-      this.newTitle = '';
+      api.addTitle({ auth: this.$auth, title: this.newTitle }).then((res) => {
+        console.log(res);
+        this.newTitle = '';
+      });
     },
   },
 };

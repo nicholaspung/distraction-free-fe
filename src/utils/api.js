@@ -7,11 +7,13 @@ const urlBase = environment === 'development' ? 'http://localhost:5000' : undefi
 const CONFIG = {
   REDDIT_POSTS: `${urlBase}/reddit`,
   USERS: `${urlBase}/api/users`,
+  TITLES: `${urlBase}/api/titles`,
 };
 
 const AUTH_HEADERS = (token) => ({
   headers: {
     Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
   },
 });
 
@@ -29,9 +31,33 @@ const checkIfUserInDb = async (auth) => {
   }
 };
 
+const addTitle = async ({ auth, title }) => {
+  try {
+    const token = await auth.getTokenSilently();
+    const response = await axios.post(CONFIG.TITLES, {
+      ...AUTH_HEADERS(token),
+      data: {
+        title,
+      },
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+const testApi = async (auth) => {
+  const token = await auth.getTokenSilently();
+  const response = await axios.get(`${urlBase}/api/private`, AUTH_HEADERS(token));
+  return response;
+};
+
 const exportThis = {
   fetchCurrentRedditPosts,
   checkIfUserInDb,
+  addTitle,
+  testApi,
 };
 
 export default exportThis;

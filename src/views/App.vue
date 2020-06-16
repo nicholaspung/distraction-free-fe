@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <reddit-tracker />
+    <button @click="testApi">Test Api</button>
   </div>
 </template>
 
@@ -12,8 +13,13 @@ export default {
   components: { RedditTracker },
   mounted() {
     if (!this.$auth.loading) {
-      api.checkIfUserInDb(this.$auth).then((res) => console.log(res));
+      api.checkIfUserInDb(this.$auth);
     }
+  },
+  methods: {
+    testApi() {
+      api.testApi(this.$auth).then((res) => console.log(res));
+    },
   },
 };
 </script>
