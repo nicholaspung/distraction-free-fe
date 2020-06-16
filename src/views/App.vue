@@ -6,9 +6,15 @@
 
 <script>
 import RedditTracker from '@/components/RedditTracker.vue';
+import api from '@/utils/api';
 
 export default {
   components: { RedditTracker },
+  mounted() {
+    if (!this.$auth.loading) {
+      api.checkIfUserInDb(this.$auth).then((res) => console.log(res));
+    }
+  },
 };
 </script>
 

@@ -26,12 +26,10 @@
         </ul>
       </div>
     </div>
-    <button @click="callApi">Auth</button>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import api from '@/utils/api';
 import BaseInputText from '@/components/BaseInputText.vue';
 
@@ -43,7 +41,6 @@ export default {
       savedTitles: [],
       savedRedditPosts: [],
       redditPosts: [],
-      apiMessage: '',
     };
   },
   mounted() {
@@ -55,19 +52,6 @@ export default {
       .catch((err) => console.log(err));
   },
   methods: {
-    async callApi() {
-      // Get the access token from the auth wrapper
-      const token = await this.$auth.getTokenSilently();
-      // Use Axios to make a call to the API
-      const { data } = await axios.get('http://localhost:5000/api/private', {
-        headers: {
-          Authorization: `Bearer ${token}`, // send the access token through the 'Authorization' header
-        },
-      });
-
-      this.apiMessage = data.message;
-      console.log(this.apiMessage);
-    },
     addTitle() {
       console.log(this.newTitle);
       this.newTitle = '';
