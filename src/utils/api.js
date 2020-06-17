@@ -33,7 +33,9 @@ const checkIfUserInDb = async (auth) => {
 
 const addTitle = async ({ auth, title }) => {
   try {
+    console.log(auth.getIdTokenClaims());
     const token = await auth.getTokenSilently();
+    console.log(token);
     const response = await axios.post(CONFIG.TITLES, {
       ...AUTH_HEADERS(token),
       data: {

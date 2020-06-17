@@ -18,6 +18,7 @@ module.exports = {
         'linebreak-style': 'off',
         'max-len': 'warn',
         'operator-linebreak': 'warn',
+        'comma-dangle': 'warn',
       },
     },
   ],
