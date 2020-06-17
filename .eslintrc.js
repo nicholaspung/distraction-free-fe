@@ -19,6 +19,8 @@ module.exports = {
         'max-len': 'warn',
         'operator-linebreak': 'warn',
         'comma-dangle': 'warn',
+        'object-curly-newline': 'warn',
+        'implicit-arrow-linebreak': 'warn',
       },
     },
   ],
