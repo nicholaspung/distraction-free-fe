@@ -3,12 +3,14 @@ import axiosWithAuth from './axiosWithAuth';
 
 const environment = 'development';
 
-const urlBase = environment === 'development' ? 'http://localhost:5000' : undefined;
+const urlBase =
+  environment === 'development' ? 'http://localhost:5000' : undefined;
 
 const CONFIG = {
   REDDIT_POSTS: `${urlBase}/reddit`,
   USERS: `${urlBase}/api/users`,
   TITLES: `${urlBase}/api/titles`,
+  POSTS: `${urlBase}/api/posts-together`,
 };
 
 const fetchCurrentRedditPosts = () => axios.get(CONFIG.REDDIT_POSTS);
@@ -38,9 +40,33 @@ const addTitle = async ({ auth, title }) => {
   }
 };
 
+const getTitles = async (auth) => {
+  try {
+    const token = await auth.getTokenSilently();
+    const response = await axiosWithAuth(token).get(CONFIG.TITLES);
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+const getPosts = async (auth) => {
+  try {
+    const token = await auth.getTokenSilently();
+    const response = await axiosWithAuth(token).get(CONFIG.POSTS);
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 const testApi = async (auth) => {
   const token = await auth.getTokenSilently();
-  const response = await axiosWithAuth(token).post(`${urlBase}/api/private`, { data: 'hi' });
+  const response = await axiosWithAuth(token).post(`${urlBase}/api/private`, {
+    data: 'hi',
+  });
   return response;
 };
 
@@ -49,6 +75,8 @@ const exportThis = {
   checkIfUserInDb,
   addTitle,
   testApi,
+  getTitles,
+  getPosts,
 };
 
 export default exportThis;

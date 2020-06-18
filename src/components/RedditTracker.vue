@@ -3,7 +3,7 @@
     <h2>Reddit Tracker</h2>
     <div class="add-title">
       <h3>Add a New Title ➡</h3>
-      <BaseInputText
+      <base-input-text
         class="title-input"
         v-model="newTitle"
         placeholder="Add Title"
@@ -11,21 +11,9 @@
       />
     </div>
     <div class="titles-list">
-      <div>
-        <h3>Saved Titles</h3>
-      </div>
-      <div>
-        <h3>Reddit Posts you've missed</h3>
-      </div>
-      <div>
-        <h3>Latest Reddit Posts</h3>
-        <ul v-if="redditPosts.length">
-          <li
-            v-for="redditPost in redditPosts"
-            :key="redditPost.data.id"
-          >{{ redditPost.data.title }}</li>
-        </ul>
-      </div>
+      <have-not-read />
+      <saved-titles />
+      <reddit-posts />
     </div>
   </div>
 </template>
@@ -33,24 +21,16 @@
 <script>
 import api from '@/utils/api';
 import BaseInputText from '@/components/BaseInputText.vue';
+import RedditPosts from '@/components/RedditPosts.vue';
+import SavedTitles from '@/components/SavedTitles.vue';
+import HaveNotRead from '@/components/HaveNotRead.vue';
 
 export default {
-  components: { BaseInputText },
+  components: { BaseInputText, RedditPosts, SavedTitles, HaveNotRead },
   data() {
     return {
       newTitle: '',
-      savedTitles: [],
-      savedRedditPosts: [],
-      redditPosts: [],
     };
-  },
-  mounted() {
-    api
-      .fetchCurrentRedditPosts()
-      .then((res) => {
-        this.redditPosts = res.data.data;
-      })
-      .catch((err) => console.log(err));
   },
   methods: {
     addTitle() {
