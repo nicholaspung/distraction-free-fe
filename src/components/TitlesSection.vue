@@ -13,6 +13,7 @@
     <ul v-if="titles.length">
       <li v-for="titleObj in titles" :key="titleObj.id">
         {{ titleObj.title }}
+        <button @click="deleteTitle(titleObj.title)">X</button>
       </li>
     </ul>
   </div>
@@ -30,9 +31,6 @@ export default {
       titles: [],
     };
   },
-  mounted() {
-    this.getTitles();
-  },
   methods: {
     getTitles() {
       api.getTitles(this.$auth).then((res) => {
@@ -45,6 +43,14 @@ export default {
         this.getTitles();
       });
     },
+    deleteTitle(item) {
+      api.deleteTitle({ auth: this.$auth, title: item }).then(() => {
+        this.getTitles();
+      });
+    },
+  },
+  mounted() {
+    this.getTitles();
   },
 };
 </script>

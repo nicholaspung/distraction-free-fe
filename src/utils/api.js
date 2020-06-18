@@ -10,7 +10,8 @@ const CONFIG = {
   REDDIT_POSTS: `${urlBase}/reddit`,
   USERS: `${urlBase}/api/users`,
   TITLES: `${urlBase}/api/titles`,
-  POSTS: `${urlBase}/api/posts-together`,
+  POSTS_TOGETHER: `${urlBase}/api/posts-together`,
+  POSTS: `${urlBase}/api/posts`,
 };
 
 const fetchCurrentRedditPosts = () => axios.get(CONFIG.REDDIT_POSTS);
@@ -51,10 +52,48 @@ const getTitles = async (auth) => {
   }
 };
 
+const deleteTitle = async ({ auth, title }) => {
+  try {
+    const token = await auth.getTokenSilently();
+    const response = await axiosWithAuth(token).delete(
+      `${CONFIG.TITLES}/${title}`
+    );
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 const getPosts = async (auth) => {
   try {
     const token = await auth.getTokenSilently();
-    const response = await axiosWithAuth(token).get(CONFIG.POSTS);
+    const response = await axiosWithAuth(token).get(CONFIG.POSTS_TOGETHER);
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+const updatePost = async ({ auth, title, redditId }) => {
+  try {
+    const token = await auth.getTokenSilently();
+    const response = await axiosWithAuth(token).put(CONFIG.POSTS, {
+      title,
+      reddit_id: redditId,
+    });
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+const deletePost = async ({ auth, id }) => {
+  try {
+    const token = await auth.getTokenSilently();
+    const response = await axiosWithAuth(token).delete(`${CONFIG.POSTS}/${id}`);
     return response;
   } catch (err) {
     console.error(err);
@@ -77,6 +116,9 @@ const exportThis = {
   testApi,
   getTitles,
   getPosts,
+  deleteTitle,
+  deletePost,
+  updatePost,
 };
 
 export default exportThis;

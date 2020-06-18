@@ -3,7 +3,7 @@
     <h2>Reddit Tracker</h2>
     <div class="titles-list">
       <have-not-read />
-      <saved-titles />
+      <titles-section />
       <reddit-posts />
     </div>
   </div>
@@ -11,11 +11,11 @@
 
 <script>
 import RedditPosts from '@/components/RedditPosts.vue';
-import SavedTitles from '@/components/SavedTitles.vue';
+import TitlesSection from '@/components/TitlesSection.vue';
 import HaveNotRead from '@/components/HaveNotRead.vue';
 
 export default {
-  components: { RedditPosts, SavedTitles, HaveNotRead },
+  components: { RedditPosts, TitlesSection, HaveNotRead },
 };
 </script>
 
