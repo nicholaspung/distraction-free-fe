@@ -3,7 +3,7 @@
     <h3>Reddit Posts you've missed</h3>
     <ul v-if="posts.length">
       <li v-for="post in posts" :key="post.id">
-        <router-link :to="`${post.url}`">{{ post.title }}</router-link>
+        <a v-bind:href="post.url" target="_blank">{{ post.title }}</a>
       </li>
     </ul>
   </div>

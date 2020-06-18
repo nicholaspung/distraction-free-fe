@@ -3,6 +3,9 @@
     <h3>Latest Reddit Posts</h3>
     <ul v-if="redditPosts.length">
       <li v-for="redditPost in redditPosts" :key="redditPost.data.id">
+        <button>
+          <a v-bind:href="redditPost.data.url" target="_blank" class="link">Link</a>
+        </button>
         {{ redditPost.data.title }}
       </li>
     </ul>
@@ -29,4 +32,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.link {
+  color: #2c3e50;
+  text-decoration: none;
+}
+</style>
