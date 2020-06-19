@@ -2,10 +2,11 @@
   <div class="reddit-tracker">
     <h2>Reddit Tracker</h2>
     <div class="titles-list">
-      <have-not-read />
-      <titles-section />
-      <reddit-posts />
+      <have-not-read class="section" />
+      <titles-section class="section" />
+      <reddit-posts class="section" />
     </div>
+    <div class="bottom" />
   </div>
 </template>
 
@@ -20,6 +21,11 @@ export default {
 </script>
 
 <style scoped>
+.reddit-tracker {
+  border-left: 2px solid #c4c4c4;
+  border-right: 2px solid #c4c4c4;
+}
+
 .reddit-tracker h2 {
   background-color: #c4c4c4;
   padding: 1rem;
@@ -33,5 +39,18 @@ export default {
 .titles-list {
   display: flex;
   justify-content: space-around;
+}
+
+.section {
+  border-right: 2px solid #c4c4c4;
+}
+
+.section:last-child {
+  border-right: 0;
+}
+
+.bottom {
+  height: 3rem;
+  background-color: #c4c4c4;
 }
 </style>

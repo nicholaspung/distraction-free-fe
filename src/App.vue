@@ -37,7 +37,8 @@ body {
 }
 
 #footer {
-  margin: 1rem;
+  padding: 1rem;
+  border-top: 1px solid black;
 }
 
 @media only screen and (min-width: 850px) {
