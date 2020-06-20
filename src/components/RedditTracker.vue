@@ -2,8 +2,8 @@
   <div class="reddit-tracker">
     <h2>Reddit Tracker</h2>
     <div class="titles-list">
+      <titles-section class="section titles" />
       <have-not-read class="section" />
-      <titles-section class="section" />
       <reddit-posts class="section" />
     </div>
     <div class="bottom" />
@@ -42,11 +42,16 @@ export default {
 }
 
 .section {
+  flex: 1;
   border-right: 2px solid #c4c4c4;
 }
 
 .section:last-child {
   border-right: 0;
+}
+
+.titles {
+  flex: 0;
 }
 
 .bottom {

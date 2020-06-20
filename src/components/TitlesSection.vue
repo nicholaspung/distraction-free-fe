@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="add-title">
-      <h3>Add a New Title ⬇</h3>
+      <h5>Add a New Title ⬇</h5>
       <base-input-text
         class="title-input"
         v-model="newTitle"
@@ -30,12 +30,13 @@ export default {
   data() {
     return {
       newTitle: '',
-      titles: [],
+      titles: [{ id: 1, title: '' }],
     };
   },
   methods: {
     getTitles() {
       api.getTitles(this.$auth).then((res) => {
+        console.log(res);
         this.titles = res.data.titles;
       });
     },
@@ -63,7 +64,7 @@ export default {
   background-color: #d2d7db;
 }
 
-.add-title h3 {
+.add-title h5 {
   margin: 0;
 }
 

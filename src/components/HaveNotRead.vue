@@ -20,7 +20,7 @@ import api from '@/utils/api';
 
 export default {
   data() {
-    return { posts: [] };
+    return { posts: [{ id: 1, url: '', title: '' }] };
   },
   methods: {
     deletePost(id) {
@@ -40,6 +40,7 @@ export default {
   },
   mounted() {
     api.getPosts(this.$auth).then((res) => {
+      console.log(res);
       this.posts = res.data.posts;
     });
   },

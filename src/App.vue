@@ -1,19 +1,23 @@
 <template>
   <div id="app">
-    <header-nav />
-    <router-view />
-    <div id="footer">
-      <p>Intentionally made with little color and limited pictures to discourage frequent checking.</p>
-      <p>© 2020, Nicholas Pung</p>
+    <loading-circle v-if="$auth.loading" />
+    <div v-else>
+      <header-nav />
+      <router-view />
+      <div id="footer">
+        <p>Intentionally made with little color and limited pictures to discourage frequent checking.</p>
+        <p>© 2020, Nicholas Pung</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import HeaderNav from '@/components/HeaderNav.vue';
+import LoadingCircle from '@/components/LoadingCircle.vue';
 
 export default {
-  components: { HeaderNav },
+  components: { HeaderNav, LoadingCircle },
 };
 </script>
 

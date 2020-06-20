@@ -2,15 +2,22 @@
   <div id="nav">
     <router-link to="/">Distraction Free</router-link>
     <div v-if="!$auth.loading">
-      <button to="/app" class="login" v-if="!$auth.isAuthenticated" @click="login">Login w/ Google</button>
-      <button to="/" class="login" v-if="$auth.isAuthenticated" @click="logout">Logout</button>
-      {{$auth.isAuthenticated}}
+      <router-link to="/app" v-if="renderAppLink">
+        <button>App</button>
+      </router-link>
+      <button to="/app" v-if="!$auth.isAuthenticated" @click="login">Login w/ Google</button>
+      <button to="/" v-if="$auth.isAuthenticated" @click="logout">Logout</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  computed: {
+    renderAppLink() {
+      return this.$auth.isAuthenticated && this.$route.path !== '/app';
+    }
+  },
   methods: {
     login() {
       this.$auth.loginWithRedirect();
@@ -39,8 +46,12 @@ export default {
   text-decoration: none;
 }
 
-.login {
+button {
+  border: 0;
+  font-weight: bold;
   background-color: #c4c4c4;
   padding: 1rem;
+  margin: 0 0 0 1rem;
+  cursor: pointer;
 }
 </style>

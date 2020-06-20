@@ -18,13 +18,14 @@ import api from '@/utils/api';
 export default {
   data() {
     return {
-      redditPosts: [],
+      redditPosts: [{ data: { id: 1, url: '', title: '' } }],
     };
   },
   mounted() {
     api
       .fetchCurrentRedditPosts()
       .then((res) => {
+        console.log(res);
         this.redditPosts = res.data.data;
       })
       .catch((err) => console.log(err));
