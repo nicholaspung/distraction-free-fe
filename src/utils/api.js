@@ -1,24 +1,29 @@
 import axios from 'axios';
 import axiosWithAuth from './axiosWithAuth';
 
-const environment = 'development';
+const env = 'development';
 
-const urlBase =
-  environment === 'development' ? 'http://localhost:5000' : undefined;
+const urlBase = env === 'development' ? 'http://localhost:5000' : undefined;
 
 const CONFIG = {
   REDDIT_POSTS: `${urlBase}/reddit`,
   USERS: `${urlBase}/api/users`,
   TITLES: `${urlBase}/api/titles`,
-  POSTS_TOGETHER: `${urlBase}/api/posts-together`,
   POSTS: `${urlBase}/api/posts`,
 };
 
-const fetchCurrentRedditPosts = () => axios.get(CONFIG.REDDIT_POSTS);
+const fetchCurrentRedditPosts = async () => {
+  try {
+    const response = await axios.get(CONFIG.REDDIT_POSTS);
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
 
 const checkIfUserInDb = async (auth) => {
   try {
-    // Get the access token from the auth wrapper
     const token = await auth.getTokenSilently();
     const response = await axiosWithAuth(token).get(CONFIG.USERS);
     return response;
@@ -68,7 +73,7 @@ const deleteTitle = async ({ auth, title }) => {
 const getPosts = async (auth) => {
   try {
     const token = await auth.getTokenSilently();
-    const response = await axiosWithAuth(token).get(CONFIG.POSTS_TOGETHER);
+    const response = await axiosWithAuth(token).get(CONFIG.POSTS);
     return response;
   } catch (err) {
     console.error(err);
@@ -76,12 +81,12 @@ const getPosts = async (auth) => {
   }
 };
 
-const updatePost = async ({ auth, title, redditId }) => {
+const updatePost = async ({ auth, redditId }) => {
   try {
     const token = await auth.getTokenSilently();
-    const response = await axiosWithAuth(token).put(CONFIG.POSTS, {
-      title,
+    const response = await axiosWithAuth(token).post(CONFIG.POSTS, {
       reddit_id: redditId,
+      read: true,
     });
     return response;
   } catch (err) {
@@ -101,19 +106,10 @@ const deletePost = async ({ auth, id }) => {
   }
 };
 
-const testApi = async (auth) => {
-  const token = await auth.getTokenSilently();
-  const response = await axiosWithAuth(token).post(`${urlBase}/api/private`, {
-    data: 'hi',
-  });
-  return response;
-};
-
 const exportThis = {
   fetchCurrentRedditPosts,
   checkIfUserInDb,
   addTitle,
-  testApi,
   getTitles,
   getPosts,
   deleteTitle,

@@ -9,7 +9,6 @@
           @click="markPostRead(post)"
           class="link"
         >{{ post.title }}</a>
-        <button @click="deletePost(post.id)">X</button>
       </li>
     </ul>
   </div>
@@ -23,26 +22,23 @@ export default {
     return { posts: [{ id: 1, url: '', title: '' }] };
   },
   methods: {
-    deletePost(id) {
-      api.deletePost({ auth: this.$auth, id }).then((res) => {
-        console.log(res);
-      });
-    },
     markPostRead(post) {
       api
         .updatePost({
           auth: this.$auth,
-          title: post.title,
           redditId: post.reddit_id,
-        })
-        .then((res) => console.log(res));
+        }).then(() => {
+          this.getFilteredPosts();
+        });
+    },
+    getFilteredPosts() {
+      api.getPosts(this.$auth).then((res) => {
+        this.posts = res.data.posts;
+      });
     },
   },
   mounted() {
-    api.getPosts(this.$auth).then((res) => {
-      console.log(res);
-      this.posts = res.data.posts;
-    });
+    this.getFilteredPosts();
   },
 };
 </script>

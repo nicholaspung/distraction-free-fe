@@ -25,10 +25,8 @@ export default {
     api
       .fetchCurrentRedditPosts()
       .then((res) => {
-        console.log(res);
         this.redditPosts = res.data.data;
-      })
-      .catch((err) => console.log(err));
+      });
   },
 };
 </script>

@@ -36,15 +36,16 @@ export default {
   methods: {
     getTitles() {
       api.getTitles(this.$auth).then((res) => {
-        console.log(res);
         this.titles = res.data.titles;
       });
     },
     addTitle() {
-      api.addTitle({ auth: this.$auth, title: this.newTitle }).then(() => {
-        this.newTitle = '';
-        this.getTitles();
-      });
+      if (this.newTitle) {
+        api.addTitle({ auth: this.$auth, title: this.newTitle }).then(() => {
+          this.newTitle = '';
+          this.getTitles();
+        });
+      }
     },
     deleteTitle(item) {
       api.deleteTitle({ auth: this.$auth, title: item }).then(() => {
