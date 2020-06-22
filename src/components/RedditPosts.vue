@@ -9,23 +9,32 @@
         {{ redditPost.data.title }}
       </li>
     </ul>
+    <div
+      v-else-if="!loading && redditPosts.length === 0"
+    >Something went wrong with Reddit. Or refresh the page.</div>
+    <loading-circle v-if="loading" />
   </div>
 </template>
 
 <script>
 import api from '@/utils/api';
+import LoadingCircle from '@/components/LoadingCircle.vue';
 
 export default {
+  components: { LoadingCircle },
   data() {
     return {
-      redditPosts: [{ data: { id: 1, url: '', title: '' } }],
+      redditPosts: [],
+      loading: false
     };
   },
   mounted() {
+    this.loading = true;
     api
       .fetchCurrentRedditPosts()
       .then((res) => {
         this.redditPosts = res.data.data;
+        this.loading = false;
       });
   },
 };

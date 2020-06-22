@@ -11,15 +11,19 @@
         >{{ post.title }}</a>
       </li>
     </ul>
+    <div v-else-if="!loading && posts.length === 0">You have read all saved titles.</div>
+    <loading-circle v-if="loading" />
   </div>
 </template>
 
 <script>
 import api from '@/utils/api';
+import LoadingCircle from '@/components/LoadingCircle.vue';
 
 export default {
+  components: { LoadingCircle },
   data() {
-    return { posts: [{ id: 1, url: '', title: '' }] };
+    return { posts: [], loading: false };
   },
   methods: {
     markPostRead(post) {
@@ -34,10 +38,12 @@ export default {
     getFilteredPosts() {
       api.getPosts(this.$auth).then((res) => {
         this.posts = res.data.posts;
+        this.loading = false;
       });
     },
   },
   mounted() {
+    this.loading = true;
     this.getFilteredPosts();
   },
 };
