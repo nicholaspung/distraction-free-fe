@@ -17,8 +17,10 @@
           <button @click="deleteTitle(titleObj.title)">X</button>
         </li>
       </ul>
-      <div v-else-if="!loading && titles.length === 0">You have no saved titles.</div>
-      <loading-circle v-if="loading" />
+      <div v-else-if="loadSpinner">
+        You have no saved titles.
+      </div>
+      <loading-circle v-if="!loadSpinner" v-bind:small="true" />
     </div>
   </div>
 </template>
@@ -30,11 +32,17 @@ import LoadingCircle from '@/components/LoadingCircle.vue';
 
 export default {
   components: { BaseInputText, LoadingCircle },
+  computed: {
+    loadSpinner() {
+      console.log(this.loading, this.titles.length);
+      return !this.loading && this.titles.length === 0;
+    },
+  },
   data() {
     return {
       newTitle: '',
-      titles: [],
-      loading: false
+      titles: this.$store.state.titles || [],
+      loading: false,
     };
   },
   methods: {
@@ -42,6 +50,7 @@ export default {
       api.getTitles(this.$auth).then((res) => {
         this.titles = res.data.titles;
         this.loading = false;
+        this.$store.commit('saveData', { key: 'titles', data: this.titles });
       });
     },
     addTitle() {
@@ -58,7 +67,7 @@ export default {
       });
     },
   },
-  mounted() {
+  created() {
     this.loading = true;
     this.getTitles();
   },

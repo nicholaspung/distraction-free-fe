@@ -1,5 +1,6 @@
 /* eslint-disable comma-dangle */
 import Vue from 'vue';
+import store from './store/store';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -18,7 +19,9 @@ Vue.use(Auth0Plugin, {
   scope,
   onRedirectCallback: (appState) => {
     router.push(
-      appState && appState.targetUrl ? appState.targetUrl : { path: '/login-redirect', search: '' }
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : { path: '/login-redirect', search: '' }
     );
   },
 });
@@ -27,5 +30,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

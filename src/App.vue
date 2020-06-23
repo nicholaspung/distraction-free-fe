@@ -5,7 +5,10 @@
       <header-nav />
       <router-view />
       <div id="footer">
-        <p>Intentionally made with little color and limited pictures to discourage frequent checking.</p>
+        <p>
+          Intentionally made with little color and limited pictures to
+          discourage frequent checking.
+        </p>
         <p>© 2020, Nicholas Pung</p>
       </div>
     </div>

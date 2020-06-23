@@ -8,3 +8,7 @@
   - [] Use vuex as global state, learn about flux implementation
 - [x] Add a "loading" and "no item" display for user
 - [] See if you can cache images?
+- [] Hide posts that aren't relevant
+- [] Add a refresh button for reddit posts
+  - [] Maybe add a style for when refreshed, posts that are the same are crossed out
+- [] Change mounted to created, created = when first loaded, mounted = when re-rendered

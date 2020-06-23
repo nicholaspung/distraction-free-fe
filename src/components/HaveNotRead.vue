@@ -8,11 +8,14 @@
           target="_blank"
           @click="markPostRead(post)"
           class="link"
-        >{{ post.title }}</a>
+          >{{ post.title }}</a
+        >
       </li>
     </ul>
-    <div v-else-if="!loading && posts.length === 0">You have read all saved titles.</div>
-    <loading-circle v-if="loading" />
+    <div v-else-if="loadSpinner">
+      You have read all saved titles.
+    </div>
+    <loading-circle v-if="!loadSpinner" v-bind:small="true" />
   </div>
 </template>
 
@@ -22,6 +25,11 @@ import LoadingCircle from '@/components/LoadingCircle.vue';
 
 export default {
   components: { LoadingCircle },
+  computed: {
+    loadSpinner() {
+      return !this.loading && this.posts.length === 0;
+    },
+  },
   data() {
     return { posts: [], loading: false };
   },
@@ -31,7 +39,8 @@ export default {
         .updatePost({
           auth: this.$auth,
           redditId: post.reddit_id,
-        }).then(() => {
+        })
+        .then(() => {
           this.getFilteredPosts();
         });
     },
@@ -39,6 +48,7 @@ export default {
       api.getPosts(this.$auth).then((res) => {
         this.posts = res.data.posts;
         this.loading = false;
+        this.$store.commit('saveData', { key: 'posts', data: this.posts });
       });
     },
   },

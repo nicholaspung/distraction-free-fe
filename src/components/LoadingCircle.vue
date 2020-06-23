@@ -1,15 +1,38 @@
 <template>
-  <div class="loader" />
+  <div v-bind:class="loadStyle" />
 </template>
 
+<script>
+export default {
+  props: {
+    small: Boolean,
+  },
+  computed: {
+    loadStyle() {
+      return this.small ? 'loader-small' : 'loader-big';
+    },
+  },
+};
+</script>
+
 <style scoped>
-.loader {
+.loader-big {
   margin: auto;
   border: 16px solid #f3f3f3;
   border-top: 16px solid #ff5678;
   border-radius: 50%;
   width: 120px;
   height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+.loader-small {
+  margin: auto;
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #ff5678;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
   animation: spin 2s linear infinite;
 }
 
