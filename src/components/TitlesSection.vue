@@ -17,10 +17,8 @@
           <button @click="deleteTitle(titleObj.title)">X</button>
         </li>
       </ul>
-      <div v-else-if="loadSpinner">
-        You have no saved titles.
-      </div>
-      <loading-circle v-if="!loadSpinner" v-bind:small="true" />
+      <div v-else-if="loadSpinner">You have no saved titles.</div>
+      <loading-circle v-if="loading" v-bind:small="true" />
     </div>
   </div>
 </template>
@@ -34,7 +32,6 @@ export default {
   components: { BaseInputText, LoadingCircle },
   computed: {
     loadSpinner() {
-      console.log(this.loading, this.titles.length);
       return !this.loading && this.titles.length === 0;
     },
   },

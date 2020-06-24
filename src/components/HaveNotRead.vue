@@ -8,14 +8,11 @@
           target="_blank"
           @click="markPostRead(post)"
           class="link"
-          >{{ post.title }}</a
-        >
+        >{{ post.title }}</a>
       </li>
     </ul>
-    <div v-else-if="loadSpinner">
-      You have read all saved titles.
-    </div>
-    <loading-circle v-if="!loadSpinner" v-bind:small="true" />
+    <div v-else-if="loadSpinner">You have read all saved titles.</div>
+    <loading-circle v-if="loading" v-bind:small="true" />
   </div>
 </template>
 
