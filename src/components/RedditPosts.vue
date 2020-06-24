@@ -5,22 +5,34 @@
       <p v-if="clicked" class="clicked"># of times refreshed: {{ refreshCount }}</p>
       <p v-else># of times refreshed: {{ refreshCount }}</p>
     </div>
-    <h3>Latest Reddit Posts</h3>
+    <h3 class="padding">Latest Reddit Posts</h3>
     <ul v-if="redditPosts.length" class="list">
       <li v-for="redditPost in redditPosts" :key="redditPost.data.id">
-        <button>
-          <a v-bind:href="redditPost.data.url" target="_blank" class="link">Link</a>
-        </button>
-        {{ redditPost.data.title }}
+        <span v-if="!redditPost.old">
+          <button>
+            <a v-bind:href="redditPost.data.url" target="_blank" class="link">Link</a>
+          </button>
+          {{ redditPost.data.title }}
+        </span>
+        <span v-else class="old">
+          <button>
+            <a v-bind:href="redditPost.data.url" target="_blank" class="link">Link</a>
+          </button>
+          {{ redditPost.data.title }}
+        </span>
       </li>
     </ul>
-    <div v-else-if="loadSpinner">Something went wrong with Reddit. Or refresh the page.</div>
+    <div
+      v-else-if="loadSpinner"
+      class="padding"
+    >Something went wrong with Reddit. Or refresh the page.</div>
     <loading-circle v-if="loading" v-bind:small="true" />
   </div>
 </template>
 
 <script>
 import api from '@/utils/api';
+import utils from '@/utils/utils';
 import LoadingCircle from '@/components/LoadingCircle.vue';
 
 export default {
@@ -41,7 +53,8 @@ export default {
   methods: {
     loadPosts() {
       api.fetchCurrentRedditPosts().then((res) => {
-        this.redditPosts = res.data.data;
+        const processedData = utils.compareObjects(this.redditPosts, res.data.data);
+        this.redditPosts = processedData;
         this.loading = false;
         this.$store.commit('saveData', {
           key: 'redditPosts',
@@ -78,12 +91,20 @@ export default {
   color: #ff5678;
 }
 
+.old {
+  text-decoration: line-through;
+}
+
+.old button {
+  display: none;
+}
+
 .link {
   color: #2c3e50;
   text-decoration: none;
 }
 
-.reddit-posts h3 {
+.padding {
   padding: 0 1rem;
 }
 

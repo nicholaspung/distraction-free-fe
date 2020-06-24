@@ -10,14 +10,14 @@
       />
     </div>
     <div class="title-section">
-      <h3>Saved Titles</h3>
+      <h3 class="padding">Saved Titles</h3>
       <ul v-if="titles.length" class="list">
         <li v-for="titleObj in titles" :key="titleObj.id">
           {{ titleObj.title }}
           <button @click="deleteTitle(titleObj.title)">X</button>
         </li>
       </ul>
-      <div v-else-if="loadSpinner">You have no saved titles.</div>
+      <div v-else-if="loadSpinner" class="padding">You have no saved titles.</div>
       <loading-circle v-if="loading" v-bind:small="true" />
     </div>
   </div>
@@ -81,7 +81,7 @@ export default {
   margin: 0;
 }
 
-.title-section h3 {
+.padding {
   padding: 0 1rem;
 }
 

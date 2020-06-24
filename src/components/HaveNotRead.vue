@@ -1,17 +1,20 @@
 <template>
   <div class="posts">
-    <h3>Reddit Posts you've missed</h3>
+    <h3 class="padding">Reddit Posts you've missed</h3>
     <ul v-if="posts.length" class="list">
       <li v-for="post in posts" :key="post.id">
-        <a
-          v-bind:href="post.url"
-          target="_blank"
-          @click="markPostRead(post)"
-          class="link"
-        >{{ post.title }}</a>
+        <div class="post">
+          <a
+            v-bind:href="post.url"
+            target="_blank"
+            @click="markPostRead(post)"
+            class="link"
+          >{{ post.title }}</a>
+          <button @click="markPostRead(post)">Hide</button>
+        </div>
       </li>
     </ul>
-    <div v-else-if="loadSpinner">You have read all saved titles.</div>
+    <div v-else-if="loadSpinner" class="padding">You have read all saved titles.</div>
     <loading-circle v-if="loading" v-bind:small="true" />
   </div>
 </template>
@@ -62,8 +65,16 @@ export default {
   text-decoration: none;
 }
 
-.posts h3 {
+.padding {
   padding: 0 1rem;
+}
+
+.post {
+  display: flex;
+}
+
+.post button {
+  cursor: pointer;
 }
 
 .list {
