@@ -51,6 +51,10 @@ export default {
       });
     },
     addTitle() {
+      if (this.titles.find((el) => el.title === this.newTitle)) {
+        this.newTitle = '';
+        return;
+      }
       if (this.newTitle) {
         api.addTitle({ auth: this.$auth, title: this.newTitle }).then(() => {
           this.newTitle = '';
