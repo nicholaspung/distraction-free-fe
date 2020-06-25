@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
+const uri =
+  process.env.NODE_ENV === 'production' ? '/distraction-free-fe/' : '/app';
+
 /** Define a default action to perform after authentication */
 const DEFAULT_REDIRECT_CALLBACK = () =>
   // eslint-disable-next-line implicit-arrow-linebreak
@@ -14,7 +17,7 @@ export const getInstance = () => instance;
 /** Creates an instance of the Auth0 SDK. If one has already been created, it returns that instance */
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  redirectUri = `${window.location.origin}/distration-free-fe/app`,
+  redirectUri = `${window.location.origin}${uri}`,
   ...options
 }) => {
   if (instance) return instance;

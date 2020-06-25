@@ -1,0 +1,6 @@
+{
+  "domain": "dev-b8-4w1hq.auth0.com",
+  "clientId": "4V9JzuHGT6s34XpmMs5zDmhy4tknE2c8",
+  "audience": "https://www.myexperiment.life/api",
+  "scope": "update:titles"
+}
