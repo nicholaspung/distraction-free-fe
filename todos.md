@@ -15,3 +15,4 @@
 
 - [] See if you can cache images?
 - [] Add a delete user button
+- [] Figure out why GitHub pages deployment is directed to main url, but suburl
