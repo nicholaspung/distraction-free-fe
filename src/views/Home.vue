@@ -6,8 +6,13 @@
     <div class="description">
       <p>Find yourself checking Reddit or Twitter way too often?</p>
       <p>Only use Reddit or Twitter for specific keywords?</p>
-      <p>This tool will help you group all the distractions together so when you check, you only need to check one website!</p>
-      <button v-if="!$auth.isAuthenticated" @click="login">Sign up w/ Google</button>
+      <p>
+        This tool will help you group all the distractions together so when you
+        check, you only need to check one website!
+      </p>
+      <button v-if="!$auth.isAuthenticated" @click="login">
+        Sign up w/ Google
+      </button>
       <router-link to="/app" v-if="renderAppLink">
         <button>Go to App</button>
       </router-link>
@@ -24,13 +29,13 @@ export default {
   computed: {
     renderAppLink() {
       return this.$auth.isAuthenticated && this.$route.path !== '/app';
-    }
+    },
   },
   methods: {
     login() {
       this.$auth.loginWithRedirect();
     },
-  }
+  },
 };
 </script>
 

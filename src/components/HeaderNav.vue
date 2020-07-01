@@ -16,7 +16,7 @@ export default {
   computed: {
     renderAppLink() {
       return this.$auth.isAuthenticated && this.$route.path !== '/app';
-    }
+    },
   },
   methods: {
     login() {

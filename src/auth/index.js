@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
-const uri =
-  process.env.NODE_ENV === 'production' ? '/distraction-free-fe/' : '/app';
+const uri = process.env.NODE_ENV === 'production' ? '/distraction-free-fe/' : '/app';
 
 /** Define a default action to perform after authentication */
 const DEFAULT_REDIRECT_CALLBACK = () =>
@@ -14,7 +13,8 @@ let instance;
 /** Returns the current instance of the SDK */
 export const getInstance = () => instance;
 
-/** Creates an instance of the Auth0 SDK. If one has already been created, it returns that instance */
+/** Creates an instance of the Auth0 SDK. If one has already been created,
+ * it returns that instance */
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
   redirectUri = `${window.location.origin}${uri}`,
@@ -99,8 +99,8 @@ export const useAuth0 = ({
       try {
         // If the user is returning to the app after authentication..
         if (
-          window.location.search.includes('code=') &&
-          window.location.search.includes('state=')
+          window.location.search.includes('code=')
+          && window.location.search.includes('state=')
         ) {
           // handle the redirect and retrieve tokens
           const { appState } = await this.auth0Client.handleRedirectCallback();

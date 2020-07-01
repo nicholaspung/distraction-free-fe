@@ -1,4 +1,3 @@
 module.exports = {
-  publicPath:
-    process.env.NODE_ENV === 'production' ? '/distraction-free-fe/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? process.env.URL : '/',
 };

@@ -15,3 +15,8 @@
 - [x] Figure out why GitHub pages deployment is directed to main url, but suburl
 
 - [] Add a delete user button
+- [] Add logout for deployed app
+- [] Add deployed backend server for when it's in production
+- [] Add a Twitter option
+- [] Add a mobile view to app
+- [] Add an indicator for when saving titles

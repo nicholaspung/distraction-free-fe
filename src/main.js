@@ -6,7 +6,9 @@ import './registerServiceWorker';
 import router from './router';
 
 // Import the Auth0 configuration
-import { domain, clientId, audience, scope } from '../auth_config.json';
+import {
+  domain, clientId, audience, scope
+} from '../auth_config.json';
 
 // Import the plugin here
 import { Auth0Plugin } from './auth';

@@ -61,7 +61,7 @@ const deleteTitle = async ({ auth, title }) => {
   try {
     const token = await auth.getTokenSilently();
     const response = await axiosWithAuth(token).delete(
-      `${CONFIG.TITLES}/${title}`
+      `${CONFIG.TITLES}/${title}`,
     );
     return response;
   } catch (err) {
