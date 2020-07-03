@@ -1,10 +1,12 @@
 # Distraction Free FE
 
-An application to save titles for later viewing on subreddits that you frequently visit. This was created to limit the subreddit visits and designed to be very plain to discourage usage.
+An application to save titles for later viewing on subreddits that you frequently visit. This was created to limit the subreddit visits and designed to be very plain to discourage frequent usage.
+
+Note: to be used in conjunction with [distraction-free-api](https://github.com/nicholaspung/distraction-free-api)
 
 ## Key Features
 
-- Current Reddit Posts
+- See current top Reddit Posts
 - Ability to save titles to store for later viewing
 
 ## Tech Stack
