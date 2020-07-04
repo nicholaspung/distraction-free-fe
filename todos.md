@@ -14,9 +14,9 @@
   - [x] Posts that are the same are crossed out
 - [x] Figure out why GitHub pages deployment is directed to main url, but suburl
 - [x] Switch back environment variable into code again, remove dotenv
+- [x] Add logout for deployed app
 
 - [] Add a delete user button
-- [] Add logout for deployed app
 - [] Add deployed backend server for when it's in production
 - [] Add a Twitter option
 - [] Add a mobile view to app

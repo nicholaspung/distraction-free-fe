@@ -42,6 +42,7 @@ export default {
 
 .titles-list {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
 }
 
@@ -61,5 +62,17 @@ export default {
 .bottom {
   height: 3rem;
   background-color: #c4c4c4;
+}
+
+@media only screen and (min-width: 475px) {
+}
+
+@media only screen and (min-width: 700px) {
+}
+
+@media only screen and (min-width: 850px) {
+  .titles-list {
+    flex-direction: row;
+  }
 }
 </style>
