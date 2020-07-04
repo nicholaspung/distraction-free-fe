@@ -35,7 +35,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.URL,
+  base: '/distraction-free-fe/',
   routes,
 });
 

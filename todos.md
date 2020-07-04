@@ -13,6 +13,7 @@
   - [x] Maybe add a style for when refreshed
   - [x] Posts that are the same are crossed out
 - [x] Figure out why GitHub pages deployment is directed to main url, but suburl
+- [x] Switch back environment variable into code again, remove dotenv
 
 - [] Add a delete user button
 - [] Add logout for deployed app
