@@ -21,6 +21,8 @@ Deployed on Github Pages
 ```
 deploy.sh
 
+*Note: make sure to enable SSH if using below. You can also switch out to https repository url*
+
 Reminder to change:
 # if you are deploying to https://<USERNAME>.github.io
 git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
@@ -43,11 +45,26 @@ auth_config.json
 ```
 
 ```
-.env
-# if deploying to a base url: '/'
-# if deploying to a subdirectory: '/YOUR_SUBDIRECTORY'
-URL=YOUR_DIRECTORY
+api.js
 
+*Change url to point at server*
+const urlBase =
+  env === 'development' ? 'http://localhost:5000' : 'http://192.168.0.219:5000';
+```
+
+```
+auth/index.js
+
+*Change uri to correct directory*
+const uri = '/distraction-free-fe/';
+```
+
+```
+vue.config.js
+
+*Change production publicPath to correct directory
+publicPath:
+  process.env.NODE_ENV === 'production' ? '/distraction-free-fe/' : '/',
 ```
 
 ## Future Features + Needs Work

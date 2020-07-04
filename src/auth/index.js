@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
-const uri = process.env.NODE_ENV === 'production' ? '/distraction-free-fe/' : '/app';
+const uri = '/distraction-free-fe/';
 
 /** Define a default action to perform after authentication */
 const DEFAULT_REDIRECT_CALLBACK = () =>
@@ -82,7 +82,10 @@ export const useAuth0 = ({
       },
       /** Logs the user out and removes their session on the authorization server */
       logout(o) {
-        return this.auth0Client.logout(o);
+        const newO = {
+          returnTo: `${o.returnTo}${uri}`,
+        };
+        return this.auth0Client.logout(newO);
       },
     },
     /** Use this lifecycle method to instantiate the SDK client */
@@ -99,8 +102,8 @@ export const useAuth0 = ({
       try {
         // If the user is returning to the app after authentication..
         if (
-          window.location.search.includes('code=')
-          && window.location.search.includes('state=')
+          window.location.search.includes('code=') &&
+          window.location.search.includes('state=')
         ) {
           // handle the redirect and retrieve tokens
           const { appState } = await this.auth0Client.handleRedirectCallback();
