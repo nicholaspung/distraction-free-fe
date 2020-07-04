@@ -1,12 +1,13 @@
 import axios from 'axios';
 import axiosWithAuth from './axiosWithAuth';
 
-const env = 'development';
+const env = 'production';
 
-const urlBase = env === 'development' ? 'http://localhost:5000' : undefined;
+const urlBase = env === 'development' ? 'http://localhost:5000' : 'http://192.168.0.219:5000';
 
 const CONFIG = {
   REDDIT_POSTS: `${urlBase}/reddit`,
+  WEBSITES: `${urlBase}/websites`,
   USERS: `${urlBase}/api/users`,
   TITLES: `${urlBase}/api/titles`,
   POSTS: `${urlBase}/api/posts`,
@@ -15,6 +16,16 @@ const CONFIG = {
 const fetchCurrentRedditPosts = async () => {
   try {
     const response = await axios.get(CONFIG.REDDIT_POSTS);
+    return response;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+const fetchWebsites = async () => {
+  try {
+    const response = await axios.get(CONFIG.WEBSITES);
     return response;
   } catch (err) {
     console.error(err);
@@ -108,6 +119,7 @@ const deletePost = async ({ auth, id }) => {
 
 const exportThis = {
   fetchCurrentRedditPosts,
+  fetchWebsites,
   checkIfUserInDb,
   addTitle,
   getTitles,

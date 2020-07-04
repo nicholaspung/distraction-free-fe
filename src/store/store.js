@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     redditPosts: [],
     titles: [],
     posts: [],
+    websitePosts: [],
   },
   getters: {},
   mutations: {

@@ -5,6 +5,7 @@
       <titles-section class="section titles" />
       <have-not-read class="section" />
       <reddit-posts class="section" />
+      <websites-posts class="section" />
     </div>
     <div class="bottom" />
   </div>
@@ -14,9 +15,12 @@
 import RedditPosts from '@/components/RedditPosts.vue';
 import TitlesSection from '@/components/TitlesSection.vue';
 import HaveNotRead from '@/components/HaveNotRead.vue';
+import WebsitesPosts from '@/components/WebsitesPosts.vue';
 
 export default {
-  components: { RedditPosts, TitlesSection, HaveNotRead },
+  components: {
+    RedditPosts, TitlesSection, HaveNotRead, WebsitesPosts,
+  },
 };
 </script>
 

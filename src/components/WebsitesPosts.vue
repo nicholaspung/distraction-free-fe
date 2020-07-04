@@ -5,46 +5,45 @@
       <p v-if="clicked" class="clicked"># of times refreshed: {{ refreshCount }}</p>
       <p v-else># of times refreshed: {{ refreshCount }}</p>
     </div>
-    <h3 class="padding">Latest Reddit Posts</h3>
-    <ul v-if="redditPosts.length" class="list">
-      <li v-for="redditPost in redditPosts" :key="redditPost.data.id">
-        <span v-if="!redditPost.old">
+    <h3 class="padding">Latest Website Titles</h3>
+    <ul v-if="websitePosts.length" class="list">
+      <li v-for="websitePost in websitePosts" :key="websitePost.title">
+        <span v-if="!websitePost.old">
           <button>
-            <a v-bind:href="redditPost.data.url" target="_blank" class="link">Link</a>
+            <a v-bind:href="websitePost.url" target="_blank" class="link">Link</a>
           </button>
-          {{ redditPost.data.title }}
+          {{ websitePost.title }}
         </span>
         <span v-else class="old">
           <button>
-            <a v-bind:href="redditPost.data.url" target="_blank" class="link">Link</a>
+            <a v-bind:href="websitePost.url" target="_blank" class="link">Link</a>
           </button>
-          {{ redditPost.data.title }}
+          {{ websitePost.title }}
         </span>
       </li>
     </ul>
     <div
       v-else-if="loadSpinner"
       class="padding"
-    >Something went wrong with Reddit. Or refresh the page.</div>
+    >Something went wrong with loading the websites. Or refresh the page.</div>
     <loading-circle v-if="loading" v-bind:small="true" />
   </div>
 </template>
 
 <script>
 import api from '@/utils/api';
-import utils from '@/utils/utils';
 import LoadingCircle from '@/components/LoadingCircle.vue';
 
 export default {
   components: { LoadingCircle },
   computed: {
     loadSpinner() {
-      return !this.loading && this.redditPosts.length === 0;
+      return !this.loading && this.websitePosts.length === 0;
     },
   },
   data() {
     return {
-      redditPosts: this.$store.state.redditPosts || [],
+      websitePosts: this.$store.state.websitePosts || [],
       loading: false,
       refreshCount: 0,
       clicked: false,
@@ -52,13 +51,12 @@ export default {
   },
   methods: {
     loadPosts() {
-      api.fetchCurrentRedditPosts().then((res) => {
-        const processedData = utils.compareObjects(this.redditPosts, res.data.data);
-        this.redditPosts = processedData;
+      api.fetchWebsites().then((res) => {
+        this.websitePosts = res.data.data;
         this.loading = false;
         this.$store.commit('saveData', {
-          key: 'redditPosts',
-          data: this.redditPosts,
+          key: 'websitePosts',
+          data: this.websitePosts,
         });
       });
     },
