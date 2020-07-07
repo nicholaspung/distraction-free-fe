@@ -21,3 +21,6 @@
 - [] Add a Twitter option
 - [] Add a mobile view to app
 - [] Add an indicator for when saving titles
+- [] Add an export titles button
+- [] Figure out why on production site in nginx, why cookies cause errors when going back onto site
+- [] If an API call responds with an error, create an error response
