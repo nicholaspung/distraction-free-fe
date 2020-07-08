@@ -15,7 +15,7 @@
       </li>
     </ul>
     <div v-else-if="loadSpinner" class="padding">You have read all saved titles.</div>
-    <loading-circle v-if="loading" v-bind:small="true" />
+    <loading-circle v-if="loading" v-bind:size="'small'" />
   </div>
 </template>
 
@@ -71,6 +71,12 @@ export default {
 
 .post {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post a {
+  padding-right: 0.25rem;
 }
 
 .post button {

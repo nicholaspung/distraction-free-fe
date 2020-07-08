@@ -3,7 +3,7 @@
     <h2>Reddit Tracker</h2>
     <div class="titles-list">
       <titles-section class="section titles" />
-      <have-not-read class="section" />
+      <have-not-read class="section have-not-read" />
       <reddit-posts class="section" />
     </div>
     <div class="bottom" />
@@ -48,7 +48,9 @@ export default {
 
 .section {
   flex: 1;
-  border-right: 2px solid #c4c4c4;
+  border: 2px solid #c4c4c4;
+  border-left: 0;
+  padding-bottom: 1rem;
 }
 
 .section:last-child {
@@ -57,6 +59,11 @@ export default {
 
 .titles {
   flex: 0;
+  order: 1;
+}
+
+.have-not-read {
+  order: -1;
 }
 
 .bottom {
@@ -73,6 +80,14 @@ export default {
 @media only screen and (min-width: 850px) {
   .titles-list {
     flex-direction: row;
+  }
+
+  .have-not-read {
+    order: 0;
+  }
+
+  .titles {
+    order: 0;
   }
 }
 </style>

@@ -5,11 +5,18 @@
 <script>
 export default {
   props: {
-    small: Boolean,
+    size: String,
   },
   computed: {
     loadStyle() {
-      return this.small ? 'loader-small' : 'loader-big';
+      switch (this.size) {
+        case 'small':
+          return 'loader-small';
+        case 'tiny':
+          return 'loader-tiny';
+        default:
+          return 'loader-big';
+      }
     },
   },
 };
@@ -33,6 +40,16 @@ export default {
   border-radius: 50%;
   width: 60px;
   height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+.loader-tiny {
+  margin: auto;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #ff5678;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   animation: spin 2s linear infinite;
 }
 

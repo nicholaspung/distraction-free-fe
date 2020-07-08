@@ -2,23 +2,26 @@
   <div>
     <div class="add-title">
       <h5>Add a New Title ⬇</h5>
-      <base-input-text
-        class="title-input"
-        v-model="newTitle"
-        placeholder="Add Title"
-        @keydown.enter="addTitle"
-      />
+      <div>
+        <base-input-text
+          class="title-input"
+          v-model="newTitle"
+          placeholder="Add Title"
+          @keydown.enter="addTitle"
+        />
+        <loading-circle v-bind:size="'tiny'" />
+      </div>
     </div>
     <div class="title-section">
       <h3 class="padding">Saved Titles</h3>
       <ul v-if="titles.length" class="list">
         <li v-for="titleObj in titles" :key="titleObj.id">
-          {{ titleObj.title }}
+          <span>{{ titleObj.title }}</span>
           <button @click="deleteTitle(titleObj.title)">X</button>
         </li>
       </ul>
       <div v-else-if="loadSpinner" class="padding">You have no saved titles.</div>
-      <loading-circle v-if="loading" v-bind:small="true" />
+      <loading-circle v-if="loading" v-bind:size="'small'" />
     </div>
   </div>
 </template>
@@ -96,6 +99,13 @@ export default {
 
 .list li {
   padding: 0.25rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list li span {
+  padding-right: 0.25rem;
 }
 
 .list li:nth-of-type(2n) {

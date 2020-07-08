@@ -1,11 +1,11 @@
 <template>
   <div>
+    <h3 class="padding">Latest Reddit Posts</h3>
     <div class="refresh">
       <button @click="increment">Click to Refresh</button>
       <p v-if="clicked" class="clicked"># of times refreshed: {{ refreshCount }}</p>
       <p v-else># of times refreshed: {{ refreshCount }}</p>
     </div>
-    <h3 class="padding">Latest Reddit Posts</h3>
     <ul v-if="redditPosts.length" class="list">
       <li v-for="redditPost in redditPosts" :key="redditPost.data.id">
         <span v-if="!redditPost.old">
@@ -26,7 +26,7 @@
       v-else-if="loadSpinner"
       class="padding"
     >Something went wrong with Reddit. Or refresh the page.</div>
-    <loading-circle v-if="loading" v-bind:small="true" />
+    <loading-circle v-if="loading" v-bind:size="'small'" />
   </div>
 </template>
 
