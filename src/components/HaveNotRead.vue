@@ -16,6 +16,7 @@
     </ul>
     <div v-else-if="loadSpinner" class="padding">You have read all saved titles.</div>
     <loading-circle v-if="loading" v-bind:size="'small'" />
+    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
@@ -31,10 +32,12 @@ export default {
     },
   },
   data() {
-    return { posts: [], loading: false };
+    return { posts: [], loading: false, error: '' };
   },
   methods: {
     markPostRead(post) {
+      this.error = '';
+      document.body.style.cursor = 'wait';
       api
         .updatePost({
           auth: this.$auth,
@@ -42,14 +45,24 @@ export default {
         })
         .then(() => {
           this.getFilteredPosts();
+          document.body.style.cursor = 'default';
+        })
+        .catch((err) => {
+          console.error(err);
+          this.error = 'We\'ve caught an unexpected error. Please try again.';
         });
     },
     getFilteredPosts() {
+      this.error = '';
       api.getPosts(this.$auth).then((res) => {
         this.posts = res.data.posts;
         this.loading = false;
         this.$store.commit('saveData', { key: 'posts', data: this.posts });
-      });
+      })
+        .catch((err) => {
+          console.error(err);
+          this.error = 'We\'ve caught an unexpected error. Please try again.';
+        });
     },
   },
   mounted() {
@@ -94,5 +107,10 @@ export default {
 
 .list li:nth-of-type(2n) {
   background-color: #d2d7db;
+}
+
+.error {
+  color: red;
+  padding: 0 1rem;
 }
 </style>

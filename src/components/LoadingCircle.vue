@@ -45,11 +45,11 @@ export default {
 
 .loader-tiny {
   margin: auto;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #ff5678;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #ff5678;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   animation: spin 2s linear infinite;
 }
 

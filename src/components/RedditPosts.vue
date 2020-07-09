@@ -27,6 +27,7 @@
       class="padding"
     >Something went wrong with Reddit. Or refresh the page.</div>
     <loading-circle v-if="loading" v-bind:size="'small'" />
+    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
@@ -48,10 +49,12 @@ export default {
       loading: false,
       refreshCount: 0,
       clicked: false,
+      error: '',
     };
   },
   methods: {
     loadPosts() {
+      this.error = '';
       api.fetchCurrentRedditPosts().then((res) => {
         const processedData = utils.compareObjects(this.redditPosts, res.data.data);
         this.redditPosts = processedData;
@@ -60,7 +63,11 @@ export default {
           key: 'redditPosts',
           data: this.redditPosts,
         });
-      });
+      })
+        .catch((err) => {
+          console.error(err);
+          this.error = 'We\'ve caught an unexpected error. Please try again.';
+        });
     },
     increment() {
       this.clicked = true;
@@ -119,5 +126,10 @@ export default {
 
 .list li:nth-of-type(2n) {
   background-color: #d2d7db;
+}
+
+.error {
+  color: red;
+  padding: 0 1rem;
 }
 </style>

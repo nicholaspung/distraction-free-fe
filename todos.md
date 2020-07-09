@@ -17,10 +17,11 @@
 - [x] Add logout for deployed app
 - [x] Add deployed backend server for when it's in production
 - [x] Add a mobile view to app
+- [x] Add an indicator for when saving titles
+- [x] If an API call responds with an error, create an error response
 
-- [] Add an indicator for when saving titles
 - [] Add a delete user button
 - [] Add a Twitter option
 - [] Add an export titles button
 - [] Figure out why on production site in nginx, why cookies cause errors when going back onto site
-- [] If an API call responds with an error, create an error response
+- [] See if I can refactor to make more reusable code
