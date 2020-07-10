@@ -17,12 +17,26 @@
           <button @click="deleteTitle(titleObj.title)">X</button>
         </li>
       </ul>
-      <div v-else-if="loadSpinner" class="padding">You have no saved titles.</div>
+      <div v-else-if="loadSpinner" class="padding">
+        You have no saved titles.
+      </div>
       <loading-circle v-if="loading" v-bind:size="'small'" />
       <p v-if="error" class="error">{{ error }}</p>
     </div>
     <div class="export-section">
-      <button class="export" @click="exportTitles">Export Titles</button>
+      <div class="export-buttons">
+        <button type="button" @click="showImportTitles">Import</button>
+        <button type="button" @click="showExportTitles">
+          Export
+        </button>
+      </div>
+      <base-input-text
+        v-if="showImport"
+        class="import-titles"
+        v-model="titlesToImport"
+        placeholder="Add Titles to Import"
+        @keydown.enter="importTitles"
+      />
       <export-titles v-if="showExport" v-bind:titles="titles" />
     </div>
   </div>
@@ -48,19 +62,23 @@ export default {
       loading: false,
       error: '',
       showExport: false,
+      showImport: false,
+      titlesToImport: '',
     };
   },
   methods: {
     getTitles() {
       this.error = '';
-      api.getTitles(this.$auth).then((res) => {
-        this.titles = res.data.titles;
-        this.loading = false;
-        this.$store.commit('saveData', { key: 'titles', data: this.titles });
-      })
+      api
+        .getTitles(this.$auth)
+        .then((res) => {
+          this.titles = res.data.titles;
+          this.loading = false;
+          this.$store.commit('saveData', { key: 'titles', data: this.titles });
+        })
         .catch((err) => {
           console.error(err);
-          this.error = 'We\'ve caught an unexpected error. Please try again.';
+          this.error = "We've caught an unexpected error. Please try again.";
         });
     },
     addTitle() {
@@ -70,29 +88,41 @@ export default {
         this.newTitle = '';
       }
       if (this.newTitle) {
-        api.addTitle({ auth: this.$auth, title: this.newTitle }).then(() => {
-          this.newTitle = '';
-          this.getTitles();
-        })
+        api
+          .addTitle({ auth: this.$auth, title: this.newTitle })
+          .then(() => {
+            this.newTitle = '';
+            this.getTitles();
+          })
           .catch((err) => {
             console.error(err);
-            this.error = 'We\'ve caught an unexpected error. Please try again.';
+            this.error = "We've caught an unexpected error. Please try again.";
           });
       }
       document.body.style.cursor = 'default';
     },
     deleteTitle(item) {
       this.error = '';
-      api.deleteTitle({ auth: this.$auth, title: item }).then(() => {
-        this.getTitles();
-      })
+      api
+        .deleteTitle({ auth: this.$auth, title: item })
+        .then(() => {
+          this.getTitles();
+        })
         .catch((err) => {
           console.error(err);
-          this.error = 'We\'ve caught an unexpected error. Please try again.';
+          this.error = "We've caught an unexpected error. Please try again.";
         });
     },
-    exportTitles() {
+    showExportTitles() {
       this.showExport = !this.showExport;
+      this.showImport = false;
+    },
+    showImportTitles() {
+      this.showImport = !this.showImport;
+      this.showExport = false;
+    },
+    importTitles() {
+      console.log(typeof this.titlesToImport);
     },
   },
   created() {
@@ -143,5 +173,11 @@ export default {
 
 .export-section {
   padding: 0 1rem;
+  text-align: center;
+}
+
+.export-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

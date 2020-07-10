@@ -5,13 +5,21 @@
       <button @click="showJavascript">Javscript</button>
     </div>
     <div class="output">
-      <button @click="copyToClipboard">Copy to Clipboard</button>
+      <button
+        type="button"
+        v-clipboard:copy="onCopy"
+        v-clipboard:success="onClick"
+        v-clipboard:error="onClick"
+        v-bind:disabled="disableCopyButton"
+      >
+        Copy to Clipboard
+      </button>
       <br />
       <p v-if="type === 'plain'" id="plain">{{ output }}</p>
       <pre v-if="type === 'javascript'" id="javascript">{{ output }}</pre>
     </div>
-  </div>
-</template>;
+  </div> </template
+>;
 
 <script>
 export default {
@@ -31,22 +39,26 @@ export default {
       this.output = output;
       return output;
     },
-    copyToClipboard() {
-      const el = document.createElement('textarea');
-      el.style.display = 'none';
+    onClick() {
       console.log(this.output);
-      el.innerHTML = this.output;
-      console.log(el);
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
+      this.disableCopyButton = !this.disableCopyButton;
+      setTimeout(() => {
+        this.disableCopyButton = !this.disableCopyButton;
+      }, 1000);
+    },
+    onCopy() {
+      if (this.type === 'plain') {
+        return this.output;
+      }
+      const lol = `${this.output}`;
+      return lol;
     },
   },
   data() {
     return {
       output: this.showPlain(),
       type: 'plain',
+      disableCopyButton: false,
     };
   },
 };
@@ -75,7 +87,6 @@ export default {
 
 .output {
   padding: 1rem 0;
-  text-align: center;
 }
 
 pre {
