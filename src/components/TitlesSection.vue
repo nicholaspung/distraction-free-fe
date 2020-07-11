@@ -5,7 +5,7 @@
       <base-input-text
         class="title-input"
         v-model="newTitle"
-        placeholder="Add Title"
+        placeholder="Add Title (no commas)"
         @keydown.enter="addTitle"
       />
     </div>
@@ -17,26 +17,24 @@
           <button @click="deleteTitle(titleObj.title)">X</button>
         </li>
       </ul>
-      <div v-else-if="loadSpinner" class="padding">
-        You have no saved titles.
-      </div>
+      <div v-else-if="loadSpinner" class="padding">You have no saved titles.</div>
       <loading-circle v-if="loading" v-bind:size="'small'" />
       <p v-if="error" class="error">{{ error }}</p>
     </div>
     <div class="export-section">
       <div class="export-buttons">
         <button type="button" @click="showImportTitles">Import</button>
-        <button type="button" @click="showExportTitles">
-          Export
-        </button>
+        <button type="button" @click="showExportTitles">Export</button>
       </div>
-      <base-input-text
-        v-if="showImport"
-        class="import-titles"
-        v-model="titlesToImport"
-        placeholder="Add Titles to Import"
-        @keydown.enter="importTitles"
-      />
+      <div v-if="showImport">
+        <p>Format in a Javascript</p>
+        <base-input-text
+          class="import-titles"
+          v-model="titlesToImport"
+          placeholder="Add Titles to Import"
+          @keydown.enter="importTitles"
+        />
+      </div>
       <export-titles v-if="showExport" v-bind:titles="titles" />
     </div>
   </div>
@@ -89,7 +87,7 @@ export default {
       }
       if (this.newTitle) {
         api
-          .addTitle({ auth: this.$auth, title: this.newTitle })
+          .addTitle({ auth: this.$auth, title: this.newTitle.trim() })
           .then(() => {
             this.newTitle = '';
             this.getTitles();
@@ -122,7 +120,18 @@ export default {
       this.showExport = false;
     },
     importTitles() {
-      console.log(typeof this.titlesToImport);
+      if (this.titlesToImport[0] === '[' && this.titlesToImport[this.titlesToImport.length - 1] === ']') {
+        const titlesToImport = JSON.parse(this.titlesToImport);
+        const addTitlesPromiseChain = [];
+        titlesToImport.forEach((title) => {
+          if (!this.titles.find((el) => el.title === title)) {
+            addTitlesPromiseChain.push(api.addTitle({ auth: this.$auth, title: title.trim() }));
+          }
+        });
+        Promise.all(addTitlesPromiseChain).then(() => this.getTitles());
+      }
+      this.titlesToImport = '';
+      this.showImport = false;
     },
   },
   created() {

@@ -3,6 +3,7 @@
 - [-] See if you can extract out the list display css into a component
 - [-] Change mounted to created, created = when first loaded, mounted = when re-rendered
 - [-] See if you can cache images?
+- [-] Add a Twitter option
 
 - [x] Create a user wrapper to check if user has loaded
 - [x] Add some kind of global state to keep data if component is unloaded
@@ -19,9 +20,8 @@
 - [x] Add a mobile view to app
 - [x] Add an indicator for when saving titles
 - [x] If an API call responds with an error, create an error response
+- [x] Add an export titles button
 
 - [] Add a delete user button
-- [] Add a Twitter option
-- [] Add an export titles button
 - [] Figure out why on production site in nginx, why cookies cause errors when going back onto site
 - [] See if I can refactor to make more reusable code

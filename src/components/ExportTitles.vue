@@ -7,18 +7,17 @@
     <div class="output">
       <button
         type="button"
-        v-clipboard:copy="onCopy"
+        v-clipboard:copy="output"
         v-clipboard:success="onClick"
         v-clipboard:error="onClick"
         v-bind:disabled="disableCopyButton"
-      >
-        Copy to Clipboard
-      </button>
+      >Copy to Clipboard</button>
       <br />
       <p v-if="type === 'plain'" id="plain">{{ output }}</p>
       <pre v-if="type === 'javascript'" id="javascript">{{ output }}</pre>
     </div>
-  </div> </template
+  </div>
+</template
 >;
 
 <script>
@@ -35,23 +34,15 @@ export default {
     },
     showJavascript() {
       this.type = 'javascript';
-      const output = this.titles.map((item) => item.title);
-      this.output = output;
+      const output = JSON.stringify(this.titles.map((item) => item.title));
+      this.output = output.split(',').join(', ');
       return output;
     },
     onClick() {
-      console.log(this.output);
       this.disableCopyButton = !this.disableCopyButton;
       setTimeout(() => {
         this.disableCopyButton = !this.disableCopyButton;
       }, 1000);
-    },
-    onCopy() {
-      if (this.type === 'plain') {
-        return this.output;
-      }
-      const lol = `${this.output}`;
-      return lol;
     },
   },
   data() {
