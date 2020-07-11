@@ -49,14 +49,16 @@ api.js
 
 *Change url to point at server*
 const urlBase =
-  env === 'development' ? 'http://localhost:5000' : 'http://192.168.0.219:5000';
+  env === 'development' ? 'http://localhost:5000' : 'http://YOUR.SERVER';
 ```
 
 ```
 auth/index.js
 
+If you are loading app into a subdirectory, do this. Otherwise, skip.
+
 *Change uri to correct directory*
-const uri = '/distraction-free-fe/';
+const uri = '/EITHER_HOME_OR_SUBDIRECTORY/';
 ```
 
 ```
@@ -64,7 +66,7 @@ vue.config.js
 
 *Change production publicPath to correct directory
 publicPath:
-  process.env.NODE_ENV === 'production' ? '/distraction-free-fe/' : '/',
+  process.env.NODE_ENV === 'production' ? '/EITHER_HOME_OR_SUBDIRECTORY/' : '/',
 ```
 
 ## Future Features + Needs Work
@@ -72,6 +74,12 @@ publicPath:
 Check `todos.md` file
 
 - Add a way to check Twitter for the people you follow
+- Modify the Auth0 log in page
+- Analytics to see how many posts you check a week
+
+## Auth0 Note
+
+If you decided to host the app under a subdirectory, make sure in your Auth0 configuration to point the Remote Origin to `https://YOURDOMAIN.XXX`. Don't be like me and spend a few hours wondering why my remote origin didn't work with `https://YOURDOMAIN.XXX/SUBDIRECTORY/` or `https://YOURDOMAIN.XXX/`
 
 ## Installation Instructions
 

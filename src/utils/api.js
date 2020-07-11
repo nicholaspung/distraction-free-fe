@@ -3,9 +3,8 @@ import axiosWithAuth from './axiosWithAuth';
 
 const env = 'development';
 
-const urlBase = env === 'development'
-  ? 'http://localhost:5000'
-  : 'https://192.168.0.219:5000';
+const urlBase =
+  env === 'development' ? 'http://localhost:5000' : 'http://YOUR.SERVER';
 
 const CONFIG = {
   REDDIT_POSTS: `${urlBase}/reddit`,
@@ -74,7 +73,7 @@ const deleteTitle = async ({ auth, title }) => {
   try {
     const token = await auth.getTokenSilently();
     const response = await axiosWithAuth(token).delete(
-      `${CONFIG.TITLES}/${title}`,
+      `${CONFIG.TITLES}/${title}`
     );
     return response;
   } catch (err) {
