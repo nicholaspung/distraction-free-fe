@@ -22,6 +22,6 @@
 - [x] If an API call responds with an error, create an error response
 - [x] Add an export titles button
 - [x] Figure out why on production site in nginx, why cookies cause errors when going back onto site
+- [x] See if I can refactor to make more reusable code
 
 - [] Add a delete user button
-- [] See if I can refactor to make more reusable code

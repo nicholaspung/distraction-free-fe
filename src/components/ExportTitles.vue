@@ -22,8 +22,13 @@
 
 <script>
 export default {
-  props: {
-    titles: Array,
+  data() {
+    return {
+      output: '',
+      type: 'plain',
+      disableCopyButton: false,
+      titles: this.$store.state.titles || [],
+    };
   },
   methods: {
     showPlain() {
@@ -45,12 +50,8 @@ export default {
       }, 1000);
     },
   },
-  data() {
-    return {
-      output: this.showPlain(),
-      type: 'plain',
-      disableCopyButton: false,
-    };
+  mounted() {
+    this.showPlain();
   },
 };
 </script>

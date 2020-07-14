@@ -8,12 +8,12 @@ const urlBase =
 
 const CONFIG = {
   REDDIT_POSTS: `${urlBase}/reddit`,
-  WEBSITES: `${urlBase}/websites`,
   USERS: `${urlBase}/api/users`,
   TITLES: `${urlBase}/api/titles`,
   POSTS: `${urlBase}/api/posts`,
 };
 
+/** Reddit */
 const fetchCurrentRedditPosts = async () => {
   try {
     const response = await axios.get(CONFIG.REDDIT_POSTS);
@@ -24,16 +24,7 @@ const fetchCurrentRedditPosts = async () => {
   }
 };
 
-const fetchWebsites = async () => {
-  try {
-    const response = await axios.get(CONFIG.WEBSITES);
-    return response;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
-};
-
+/** If user not in DB, create one */
 const checkIfUserInDb = async (auth) => {
   try {
     const token = await auth.getTokenSilently();
@@ -45,6 +36,7 @@ const checkIfUserInDb = async (auth) => {
   }
 };
 
+/** Titles Section */
 const addTitle = async ({ auth, title }) => {
   try {
     const token = await auth.getTokenSilently();
@@ -82,6 +74,7 @@ const deleteTitle = async ({ auth, title }) => {
   }
 };
 
+/** Posts Section */
 const getPosts = async (auth) => {
   try {
     const token = await auth.getTokenSilently();
@@ -120,7 +113,6 @@ const deletePost = async ({ auth, id }) => {
 
 const exportThis = {
   fetchCurrentRedditPosts,
-  fetchWebsites,
   checkIfUserInDb,
   addTitle,
   getTitles,

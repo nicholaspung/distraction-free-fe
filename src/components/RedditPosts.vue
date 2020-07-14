@@ -1,11 +1,9 @@
 <template>
   <div>
     <h3 class="padding">Latest Reddit Posts</h3>
-    <div class="refresh">
-      <button @click="increment">Click to Refresh</button>
-      <p v-if="clicked" class="clicked"># of times refreshed: {{ refreshCount }}</p>
-      <p v-else># of times refreshed: {{ refreshCount }}</p>
-    </div>
+
+    <times-refreshed v-bind:action="loadPosts" />
+
     <ul v-if="redditPosts.length" class="list">
       <li v-for="redditPost in redditPosts" :key="redditPost.data.id">
         <span v-if="!redditPost.old">
@@ -22,11 +20,13 @@
         </span>
       </li>
     </ul>
+
     <div
       v-else-if="loadSpinner"
       class="padding"
     >Something went wrong with Reddit. Or refresh the page.</div>
-    <loading-circle v-if="loading" v-bind:size="'small'" />
+
+    <loading-circle v-if="loading && !this.error" v-bind:size="'small'" />
     <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
@@ -35,9 +35,10 @@
 import api from '@/utils/api';
 import utils from '@/utils/utils';
 import LoadingCircle from '@/components/LoadingCircle.vue';
+import TimesRefreshed from '@/components/TimesRefreshed.vue';
 
 export default {
-  components: { LoadingCircle },
+  components: { LoadingCircle, TimesRefreshed },
   computed: {
     loadSpinner() {
       return !this.loading && this.redditPosts.length === 0;
@@ -47,8 +48,6 @@ export default {
     return {
       redditPosts: this.$store.state.redditPosts || [],
       loading: false,
-      refreshCount: 0,
-      clicked: false,
       error: '',
     };
   },
@@ -69,14 +68,6 @@ export default {
           this.error = 'We\'ve caught an unexpected error. Please try again.';
         });
     },
-    increment() {
-      this.clicked = true;
-      this.loadPosts();
-      this.refreshCount += 1;
-      setTimeout(() => {
-        this.clicked = false;
-      }, 1000);
-    },
   },
   mounted() {
     this.loading = true;
@@ -86,17 +77,7 @@ export default {
 </script>
 
 <style scoped>
-.refresh {
-  padding: 1rem;
-  background-color: #d2d7db;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.clicked {
-  color: #ff5678;
-}
+@import './css/sections.css';
 
 .old {
   text-decoration: line-through;
@@ -106,30 +87,7 @@ export default {
   display: none;
 }
 
-.link {
-  color: #2c3e50;
-  text-decoration: none;
-}
-
-.padding {
-  padding: 0 1rem;
-}
-
-.list {
-  padding-left: 0;
-  list-style: none;
-}
-
 .list li {
   padding: 0.25rem 1rem;
-}
-
-.list li:nth-of-type(2n) {
-  background-color: #d2d7db;
-}
-
-.error {
-  color: red;
-  padding: 0 1rem;
 }
 </style>

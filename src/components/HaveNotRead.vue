@@ -1,6 +1,7 @@
 <template>
   <div class="posts">
     <h3 class="padding">Reddit Posts you've missed</h3>
+
     <ul v-if="posts.length" class="list">
       <li v-for="post in posts" :key="post.id">
         <div class="post">
@@ -14,8 +15,10 @@
         </div>
       </li>
     </ul>
+
     <div v-else-if="loadSpinner" class="padding">You have read all saved titles.</div>
-    <loading-circle v-if="loading" v-bind:size="'small'" />
+
+    <loading-circle v-if="loading && !this.error" v-bind:size="'small'" />
     <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
@@ -32,7 +35,11 @@ export default {
     },
   },
   data() {
-    return { posts: [], loading: false, error: '' };
+    return {
+      posts: [],
+      loading: false,
+      error: '',
+    };
   },
   methods: {
     markPostRead(post) {
@@ -73,14 +80,7 @@ export default {
 </script>
 
 <style scoped>
-.link {
-  color: #2c3e50;
-  text-decoration: none;
-}
-
-.padding {
-  padding: 0 1rem;
-}
+@import './css/sections.css';
 
 .post {
   display: flex;
@@ -96,21 +96,7 @@ export default {
   cursor: pointer;
 }
 
-.list {
-  padding-left: 0;
-  list-style: none;
-}
-
 .list li {
   padding: 0.25rem 1rem;
-}
-
-.list li:nth-of-type(2n) {
-  background-color: #d2d7db;
-}
-
-.error {
-  color: red;
-  padding: 0 1rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <input type="text" class="input" :value="value" v-on="listeners" />
+  <input type="text" :value="value" v-on="listeners" />
 </template>
 
 <script>
@@ -20,8 +20,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.input {
-}
-</style>
